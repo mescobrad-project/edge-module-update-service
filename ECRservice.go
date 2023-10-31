@@ -15,8 +15,8 @@ import (
 )
 
 func listVersions(repositoryName string) ([]string, error) {
-	accessKeyID := "AKIATOZU2246RHCCZG55"
-	secretAccessKey := "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"
+	accessKeyID := ""
+	secretAccessKey := ""
 
 	credentialsProvider := credentials.NewStaticCredentialsProvider(accessKeyID, secretAccessKey, "")
 
@@ -52,8 +52,8 @@ func listVersions(repositoryName string) ([]string, error) {
 }
 
 func pullImage(repositoryName, imageTag string) (string,error){
-	accessKeyID := "AKIATOZU2246RHCCZG55"
-	secretAccessKey := "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"
+	accessKeyID := ""
+	secretAccessKey := ""
 
 	credentialsProvider := credentials.NewStaticCredentialsProvider(accessKeyID, secretAccessKey, "")
 
