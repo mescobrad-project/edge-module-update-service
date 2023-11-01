@@ -25,12 +25,14 @@ func currentVersionHandler(w http.ResponseWriter, r *http.Request) {
 
 func updateHandler(w http.ResponseWriter, r *http.Request) {
     // Update Edge Module
-
 	version := strings.TrimPrefix(r.URL.Path, "/update/")
-	if version != "/update" {
-		updateEdgeModule(imageName, imageName, version)
+	var result string
+	var err error
+	if version == "/update" {
+		result, err = updateEdgeModuleLatest(imageName, imageName)
+	} else {
+    	result, err = updateEdgeModule(imageName, imageName, version)
 	}
-    result, err := updateEdgeModuleLatest(imageName, imageName)
 
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

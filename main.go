@@ -3,7 +3,22 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"github.com/joho/godotenv"
+	"os"
 )
+
+var accessKeyID string 
+var secretAccessKey string
+
+func init() {
+	// Load environment variables from .env file
+    if err := godotenv.Load(); err != nil {
+        fmt.Println("Error loading .env file")
+    }
+
+	accessKeyID = os.Getenv("ACCESSKEYID")
+    secretAccessKey = os.Getenv("SECRETACCESSKEY")
+}
 
 func main() {
 

@@ -15,16 +15,14 @@ import (
 )
 
 func listVersions(repositoryName string) ([]string, error) {
-	accessKeyID := ""
-	secretAccessKey := ""
-
 	credentialsProvider := credentials.NewStaticCredentialsProvider(accessKeyID, secretAccessKey, "")
-
+	
 	// Load AWS configuration from environment variables, AWS credentials file, and shared config file
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithCredentialsProvider(credentialsProvider),
 	)
 	if err != nil {
+		fmt.Println(err.Error())
 		return nil, err
 	}
 
@@ -37,6 +35,7 @@ func listVersions(repositoryName string) ([]string, error) {
 	}
 	output, err := client.DescribeImages(context.TODO(), input)
 	if err != nil {
+		fmt.Println(err.Error())
 		return nil, err
 	}
 
@@ -52,9 +51,6 @@ func listVersions(repositoryName string) ([]string, error) {
 }
 
 func pullImage(repositoryName, imageTag string) (string,error){
-	accessKeyID := ""
-	secretAccessKey := ""
-
 	credentialsProvider := credentials.NewStaticCredentialsProvider(accessKeyID, secretAccessKey, "")
 
 	// Load AWS configuration from environment variables, AWS credentials file, and shared config file
