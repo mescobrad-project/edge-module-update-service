@@ -25,22 +25,39 @@ func searchContainer(containerImage string) (string, string, error) {
 	}
 
 	// Check if any container has the target image name
-	imageName := ""
 	for _, container := range containers {
-		if len(strings.Split(container.Image , "/")) >= 2 {
-			imageNameWithTag := strings.Split(container.Image , "/")[1]
-			if len(strings.Split(imageNameWithTag, ":")) >= 1 {
-				imageName =  strings.Split(imageNameWithTag, ":")[0]
-			} else {
-				continue
-			}
-		} else {
+		// Split l'immagine del contenitore utilizzando "/"
+		imageParts := strings.Split(container.Image, "/")
+	
+		// Controlla se ci sono almeno 2 parti nell'URL dell'immagine
+		if len(imageParts) < 2 {
 			continue
 		}
+	
+		// Estrai il nome dell'immagine con etichetta da imageParts[1]
+		imageNameWithTag := imageParts[1]
+	
+		// Split il nome dell'immagine con etichetta utilizzando ":"
+		nameAndTag := strings.Split(imageNameWithTag, ":")
+	
+		// Controlla se c'è almeno una parte (il nome dell'immagine)
+		if len(nameAndTag) < 1 {
+			continue
+		}
+	
+		// Estrai il nome dell'immagine
+		imageName := nameAndTag[0]
+	
+		// Controlla se il nome dell'immagine corrisponde a containerImage
 		if imageName == containerImage {
-			return container.ID, strings.Split(container.Image, ":")[1], nil
+			tag := "" // Inizializza la variabile per l'etichetta
+			if len(nameAndTag) > 1 {
+				tag = nameAndTag[1] // Estrai l'etichetta se presente
+			}
+			return container.ID, tag, nil
 		}
 	}
+	
 
 	return "", "", nil
 }
