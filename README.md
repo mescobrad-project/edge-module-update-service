@@ -12,6 +12,7 @@ The project expose the following endpoints:
 - /update: which update the module to the latest version
 - /update/:version: which update the module to the specific version
 - /listversions: which list the available versions
+- /updateplugin/:plugin name: which update the plugin selected
 
 ## Getting Started
 
