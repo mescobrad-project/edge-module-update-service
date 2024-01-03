@@ -66,3 +66,19 @@ func listVersionsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(responseJSON)
 }
 
+func updatePlugin(w http.ResponseWriter, r *http.Request) {
+    // Update Plugin
+	pluginName := strings.TrimPrefix(r.URL.Path, "/updateplugin/")
+	//var result string
+	var err error
+	
+	err = updatePluginImpl(imageName, pluginName)
+
+	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+    // Write the result to the HTTP response
+    //fmt.Fprintf(w, result)
+}

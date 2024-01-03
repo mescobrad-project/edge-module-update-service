@@ -30,9 +30,11 @@ func main() {
 
 	http.HandleFunc("/listversions", listVersionsHandler)
 
+	http.HandleFunc("/updateplugin/", updatePlugin)
+
 	// Start the HTTP server on port 8080
-	fmt.Println("Server listening on :8080")
-	err := http.ListenAndServe(":8080", nil)
+	fmt.Println("Server listening on :8081")
+	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
 		panic(err)
 	}
