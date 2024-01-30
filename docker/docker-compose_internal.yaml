@@ -38,9 +38,4 @@ volumes:
     minio_storage: {}
     plugins: {}
     workflows: {}
-    edge_module_config: 
-        driver: local
-        driver_opts:
-            o: bind
-            type: none
-            device: ./config
+    edge_module_config: {}

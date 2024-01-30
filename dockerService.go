@@ -78,10 +78,10 @@ func checkEdgeModulePresence(imageName string) (string, error) {
 		return "", err
 	}
 	if ID != "" {
-		return "The current version of the edge module is: " + version + "\n", nil
+		return "The current version of the edge module is: " + version , nil
 	}
 
-	return "The edge module is not running\n", nil
+	return "The edge module is not running", nil
 }
 
 func backupDirectory(containerImage, srcDirectory, dstDirectory string) error {

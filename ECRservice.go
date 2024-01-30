@@ -19,6 +19,7 @@ func listVersions(repositoryName string) ([]string, error) {
 	
 	// Load AWS configuration from environment variables, AWS credentials file, and shared config file
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
+		config.WithRegion("eu-south-1"),
 		config.WithCredentialsProvider(credentialsProvider),
 	)
 	if err != nil {
