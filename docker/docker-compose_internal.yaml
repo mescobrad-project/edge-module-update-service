@@ -1,0 +1,41 @@
+version: "3.9"
+name: "edge_module"
+services:
+    mescobrad_edge:
+        image: 237944624957.dkr.ecr.eu-south-1.amazonaws.com/mescobrad-edge:0.0.7
+        restart: always
+        ports:
+            - "8080:8080"
+        volumes:
+            - plugins:/usr/src/app/mescobrad_edge/plugins
+            - workflows:/usr/src/app/mescobrad_edge/workflows
+            - edge_module_config:/usr/src/app/mescobrad_edge/config
+        environment:
+            - PYTHONUNBUFFERED=1
+    minio:
+        image: minio/minio:RELEASE.2021-09-15T04-54-25Z
+        restart: always
+        ports:
+            - "9000:9000"
+            - "9001:9001"
+        volumes:
+            - minio_storage:/data
+        environment:
+            MINIO_ROOT_USER: ""
+            MINIO_ROOT_PASSWORD: ""
+        command: server --console-address ":9001" /data
+    mescobrad_autoupdate:
+        image: mescobrad_autoupdate:0.0.1
+        restart: always
+        environment:
+            ACCESSKEYID: 
+            SECRETACCESSKEY: 
+        ports:
+            - "8081:8081"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+    minio_storage: {}
+    plugins: {}
+    workflows: {}
+    edge_module_config: {}
